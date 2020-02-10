@@ -84,17 +84,87 @@ if(plugin.canChangeTabs())
 			theWebUI.toggleDetailsButton(true);
 	}
 
+	theWebUI.newKeyEvent = function()
+	{
+		$(document).off('keydown');
+
+		var keyEvent = function (e)
+		{
+			switch(e.which)
+			{
+		   		case 27 : 				// Esc
+		   		{
+		   			if(theContextMenu.hide() || theDialogManager.hideTopmost())
+						return(false);
+		   			break;
+		   		}
+		   		case 79 : 				// ^O
+   				{
+					if(e.metaKey && !theDialogManager.isModalState())
+   					{
+      						theWebUI.showAdd();
+						return(false);
+      					}
+		   			break;
+				}
+				case 80 :                               // ^P
+				{
+					if(e.metaKey && !theDialogManager.isModalState())
+					{
+      						theWebUI.showSettings();
+						return(false);
+      					}
+		   			break;
+				}
+		  		case 112:				// F1
+   				{
+   				        if(!theDialogManager.isModalState())
+   				        {
+			   		        theDialogManager.show(e.metaKey ? "dlgAbout" : "dlgHelp");
+						return(false);
+					}
+		   		}
+				case 115 : 				// F4
+				{
+					theWebUI.toggleMenu();
+					if(!theWebUI.settings["webui.show_dets"])
+						theWebUI.toggleDetailsButton(true);
+					return(false);
+				}
+				case 117 :                      	// F6
+				{
+					theWebUI.toggleDetailsButton();
+					return(false);
+				}
+				case 118 :                      	// F7
+				{
+					theWebUI.toggleCategories();
+					if(!theWebUI.settings["webui.show_dets"])
+						theWebUI.toggleDetailsButton(true);
+					return(false);
+				}
+			}
+		};
+		$(document).keydown(keyEvent);
+	}
+
 	plugin.checkDetails = function(init)
 	{
 		plugin.removePageFromTabs("toggleDetailsButton");
 		if(!theWebUI.settings["webui.show_dets"])
-			theWebUI.addToggleDetailsButton("toggleDetailsButton","⇡","gcont",init);
+			theWebUI.addToggleDetailsButton("toggleDetailsButton","▲","gcont",init);
 		else
-			theWebUI.addToggleDetailsButton("toggleDetailsButton","⇣","gcont",init);
+			theWebUI.addToggleDetailsButton("toggleDetailsButton","▼","gcont",init);
 	}
 
 	plugin.allDone = function()
 	{
+		window.onresize = function(){!theWebUI.settings["webui.show_dets"] ? theWebUI.toggleDetailsButton(true) : theWebUI.resize()};
+		window.onorientationchange = function(){!theWebUI.settings["webui.show_dets"] ? theWebUI.toggleDetailsButton(true) : theWebUI.resize()};
+
+		if(!browser.isOpera)
+			theWebUI.newKeyEvent();
+
 		plugin.checkDetails(true);
 	}
 
