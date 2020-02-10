@@ -1,10 +1,10 @@
 ### toggle_details_button plugin for ruTorrent
 
-## Information
+## Informations
 
-- Plugin for ruTorrent WebUI - Adds a button to toggle details (next to "General" tab).
+- Adds a button to toggle details (next to "General" tab)
 
-- Insipred by µTorrent interface.
+- Inspired by µTorrent interface
 
 ## Installation
 

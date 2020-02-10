@@ -81,7 +81,10 @@ if(plugin.canChangeTabs())
 		var beforeLbl = $$("tab_"+idBefore);
 		beforeLbl.parentNode.insertBefore(newLbl,beforeLbl);
 		if(init && !theWebUI.settings["webui.show_dets"])
+		{
 			theWebUI.toggleDetailsButton(true);
+			setTimeout(theWebUI.fixDisplay,1000);
+		}
 	}
 
 	theWebUI.newKeyEvent = function()
@@ -146,6 +149,14 @@ if(plugin.canChangeTabs())
 			}
 		};
 		$(document).keydown(keyEvent);
+	}
+
+	theWebUI.fixDisplay = function()
+	{
+		var wh = $(window).height();
+		var dh = $("#maincont").height()+$("#t").height();
+		if(dh>wh)
+			theWebUI.toggleDetailsButton(true);
 	}
 
 	plugin.checkDetails = function(init)
