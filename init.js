@@ -168,14 +168,6 @@ if(plugin.canChangeTabs())
 
 	plugin.allDone = function()
 	{
-		theWebUI.tables.trt.ondblclick = function(obj)
-		{
-			if(!theWebUI.settings["webui.show_dets"])
-				theWebUI.toggleDetailsButton();
-			theWebUI.showDetails(obj.id);
-			return(false);
-		}
-
 		window.onresize = function(){!theWebUI.settings["webui.show_dets"] ? theWebUI.toggleDetailsButton(true) : theWebUI.resize()};
 		window.onorientationchange = function(){!theWebUI.settings["webui.show_dets"] ? theWebUI.toggleDetailsButton(true) : theWebUI.resize()};
 
