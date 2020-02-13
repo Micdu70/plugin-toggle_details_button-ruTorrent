@@ -166,11 +166,9 @@ if(plugin.canChangeTabs())
 	plugin.onRemove = function()
 	{
 		if(!browser.isOpera)
-		{
 			$(document).off('keydown');
-			theWebUI.assignEvents();
-		}
-		this.removePageFromTabs("toggleDetailsButton");
+		theWebUI.assignEvents();
+		$("#tab_toggleDetailsButton").remove();
 	}
 
 	plugin.config = theWebUI.config;
