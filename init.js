@@ -140,7 +140,7 @@ if(plugin.canChangeTabs())
 
 	plugin.addToggleDetailsButton = function()
 	{
-		this.removePageFromTabs("toggleDetailsButton");
+		$("#tab_toggleDetailsButton").remove();
 		if(!theWebUI.settings["webui.show_dets"])
 			theWebUI.addToggleDetailsButton("toggleDetailsButton","▲","gcont");
 		else
