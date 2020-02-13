@@ -1,6 +1,6 @@
 ### toggle_details_button plugin for ruTorrent
 
-Version: 1.50
+Version: 1.51
 
 ## Informations
 
