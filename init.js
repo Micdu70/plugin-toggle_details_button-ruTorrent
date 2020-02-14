@@ -20,7 +20,7 @@ if(plugin.canChangeTabs())
 
 	theWebUI.newToggleDetails = function(init)
 	{
-		var check = false;
+		var needToggle = true;
 		var wh = $(window).height();
 
 		var idTabs = [];
@@ -32,32 +32,30 @@ if(plugin.canChangeTabs())
 
 		$("#tdetails").show();
 
+		h = theWebUI.settings["webui.vsplit"];
+
 		if((init && !theWebUI.settings["webui.show_dets"]) || (!init && theWebUI.settings["webui.show_dets"]))
 		{
-			if(init)
+			if(!theWebUI.settings["webui.show_dets"])
 				theWebUI.settings["webui.show_dets"] = true;
-			h = theWebUI.settings["webui.vsplit"];
 			theWebUI.settings["webui.vsplit"] = 1-($("#StatusBar").height()/wh);
 			$("#tdcont").hide();
 			plugin.hideTabs(idTabs);
 		}
 		else
 		{
-			check = true;
 			theWebUI.settings["webui.show_dets"] = true;
+			needToggle = false;
 			plugin.showTabs(idTabs);
 			$("#tdcont").show();
 		}
 
 		theWebUI.resize();
 
-		if(check)
-			theWebUI.settings["webui.show_dets"] = false;
+		theWebUI.settings["webui.vsplit"] = h;
 
-		if(theWebUI.settings["webui.show_dets"])
-			theWebUI.settings["webui.vsplit"] = h;
-
-		theWebUI.settings["webui.show_dets"] = !theWebUI.settings["webui.show_dets"];
+		if(needToggle)
+			theWebUI.settings["webui.show_dets"] = !theWebUI.settings["webui.show_dets"];
 
 		if(!init)
 		{
