@@ -140,8 +140,6 @@ if(plugin.canChangeTabs())
 				case 115 :	// F4
 				{
 					theWebUI.toggleMenu();
-					if(!theWebUI.settings["webui.show_dets"])
-						plugin.resize(true);
 					return(false);
 				}
 				case 117 :	// F6
@@ -152,8 +150,6 @@ if(plugin.canChangeTabs())
 				case 118 :	// F7
 				{
 					theWebUI.toggleCategories();
-					if(!theWebUI.settings["webui.show_dets"])
-						plugin.resize(true);
 					return(false);
 				}
 			}
@@ -177,9 +173,6 @@ if(plugin.canChangeTabs())
 	plugin.allDone = function()
 	{
 		this.toggleDetailsButton(true);
-
-		window.onresize = function(){!theWebUI.settings["webui.show_dets"] ? plugin.resize(true) : plugin.resize()};
-		window.onorientationchange = function(){!theWebUI.settings["webui.show_dets"] ? plugin.resize(true) : plugin.resize()};
 
 		if(!browser.isOpera)
 			this.assignEvents();
