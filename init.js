@@ -36,15 +36,13 @@ if(plugin.canChangeTabs())
 				$("#tdcont").hide();
 				plugin.hideTabs(idTabs);
 			}
-			plugin.resize(true);
-		}
-		else
-		{
 			if(!init)
-			{
-				plugin.showTabs(idTabs);
-				$("#tdcont").show();
-			}
+				plugin.resize(true);
+		}
+		else if(!init)
+		{
+			plugin.showTabs(idTabs);
+			$("#tdcont").show();
 			plugin.resize();
 		}
 
@@ -99,7 +97,10 @@ if(plugin.canChangeTabs())
 
 	plugin.assignEvents = function()
 	{
-		$(document).off('keydown');
+		if(browser.isOpera)
+			$(document).off('keypress');
+		else
+			$(document).off('keydown');
 
 		var keyEvent = function (e)
 		{
@@ -154,7 +155,10 @@ if(plugin.canChangeTabs())
 				}
 			}
 		};
-		$(document).keydown(keyEvent);
+		if(browser.isOpera)
+			$(document).keypress(keyEvent);
+		else
+			$(document).keydown(keyEvent);
 	}
 
 	plugin.toggleDetailsButton = function(init)
@@ -174,7 +178,7 @@ if(plugin.canChangeTabs())
 	{
 		this.toggleDetailsButton(true);
 
-		if(!browser.isOpera)
+		if(!browser.isOpera || !e.fromTextCtrl)
 			this.assignEvents();
 
 		if(!theWebUI.settings["webui.show_dets"])
@@ -183,9 +187,14 @@ if(plugin.canChangeTabs())
 
 	plugin.onRemove = function()
 	{
-		if(!browser.isOpera)
-			$(document).off('keydown');
-		theWebUI.assignEvents();
+		if(!browser.isOpera || !e.fromTextCtrl)
+		{
+			if(browser.isOpera)
+				$(document).off('keypress');
+			else
+				$(document).off('keydown');
+			theWebUI.assignEvents();
+		}
 		$("#tab_toggleDetails").remove();
 	}
 
