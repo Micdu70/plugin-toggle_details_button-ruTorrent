@@ -18,43 +18,35 @@ if(plugin.canChangeTabs())
 
 	theWebUI.newToggleDetails = function(init)
 	{
-		if((init && !theWebUI.settings["webui.show_dets"] && (document.getElementById("tdcont").offsetParent !== null)) || !init)
+		var idTabs = [];
+		var tabsElm = document.getElementById("tabbar").children;
+		for (var i=0; i<tabsElm.length; i++)
 		{
-			var idTabs = [];
-			var tabsElm = document.getElementById("tabbar").children;
-			for (var i=0; i<tabsElm.length; i++)
-			{
-				if(tabsElm[i].id !== "tab_toggleDetails")
-					idTabs.push(tabsElm[i].id);
-			}
+			if(tabsElm[i].id !== "tab_toggleDetails")
+				idTabs.push(tabsElm[i].id);
 		}
 
-		if((init && !theWebUI.settings["webui.show_dets"]) || (!init && theWebUI.settings["webui.show_dets"]))
-		{
-			if(document.getElementById("tdcont").offsetParent !== null)
-			{
-				$("#tdcont").hide();
-				plugin.hideTabs(idTabs);
-			}
-			if(!init)
-				plugin.resize(true);
-		}
-		else if(!init)
+		if(!init && !theWebUI.settings["webui.show_dets"])
 		{
 			plugin.showTabs(idTabs);
 			$("#tdcont").show();
-			plugin.resize();
+		}
+		else
+		{
+			$("#tdcont").hide();
+			plugin.hideTabs(idTabs);
 		}
 
 		if(!init)
 		{
 			theWebUI.settings["webui.show_dets"] = !theWebUI.settings["webui.show_dets"];
+			theWebUI.resize();
 			theWebUI.save();
 			plugin.toggleDetailsButton();
 		}
 	}
 
-	plugin.resize = function(reduce)
+	plugin.resize = function(hideDetails)
 	{
 		var ww = $(window).width();
 		var wh = $(window).height();
@@ -72,7 +64,7 @@ if(plugin.canChangeTabs())
 			w = ww;
 		}
 		w-=11;
-		if(reduce)
+		if(hideDetails)
 		{
 			theWebUI.resizeTop( w, Math.floor(wh * (1-($("#StatusBar").height()/wh)))-th-7 );
 			theWebUI.resizeBottom( w, Math.floor(wh * (1 - (1-($("#StatusBar").height()/wh)))) );
