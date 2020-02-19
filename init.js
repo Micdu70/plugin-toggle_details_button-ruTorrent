@@ -82,7 +82,7 @@ if(plugin.canChangeTabs())
 		var newLbl = document.createElement("li");
 		newLbl.id = "tab_"+id;
 		newLbl.title = theUILang.Toggle_details;
-		newLbl.innerHTML = "<a href=\"javascript://void();\" onmousedown=\"theWebUI.newToggleDetails();\" onfocus=\"this.blur();\">" + name + "</a>";
+		newLbl.innerHTML = "<a href=\"javascript://void();\" onmousedown=\"theWebUI.newToggleDetails(); return(false);\" onfocus=\"this.blur();\">" + name + "</a>";
 		var beforeLbl = $$("tab_"+idBefore);
 		beforeLbl.parentNode.insertBefore(newLbl,beforeLbl);
 	}
