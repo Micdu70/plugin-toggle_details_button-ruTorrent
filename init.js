@@ -190,33 +190,27 @@ if(plugin.canChangeTabs())
 		$("#tab_toggleDetails").remove();
 	}
 
-	plugin.config = theWebUI.config;
-	theWebUI.config = function(data)
+	theWebUI.oldResize = theWebUI.resize;
+	theWebUI.resize = function()
 	{
-		plugin.oldResize = this.resize;
-		theWebUI.resize = function()
+		if(plugin.enabled)
 		{
-			if(plugin.enabled)
-			{
-				if(theWebUI.settings["webui.show_dets"])
-					plugin.resize();
-				else
-					plugin.resize(true);
-			}
+			if(theWebUI.settings["webui.show_dets"])
+				plugin.resize();
 			else
-				plugin.oldResize();
-		};
+				plugin.resize(true);
+		}
+		else
+			theWebUI.oldResize();
+	};
 
-		theWebUI.tables.trt.ondblclick = function(obj)
-		{
-			if(plugin.enabled && !theWebUI.settings["webui.show_dets"])
-				theWebUI.newToggleDetails();
-			theWebUI.showDetails(obj.id);
-			return(false);
-		};
+	theWebUI.tables.trt.ondblclick = function(obj)
+	{
+		if(plugin.enabled && !theWebUI.settings["webui.show_dets"])
+			theWebUI.newToggleDetails();
+		theWebUI.showDetails(obj.id);
+		return(false);
+	};
 
-		plugin.config.call(this,data);
-
-		thePlugins.waitLoad( "thePlugins.get('toggle_details_button').allDone" );
-	}
+	thePlugins.waitLoad( "thePlugins.get('toggle_details_button').allDone" );
 }
