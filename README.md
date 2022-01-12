@@ -1,7 +1,5 @@
 ### toggle_details_button plugin for ruTorrent
 
-Version: 2.10
-
 ## Informations
 
 - Adds a button to toggle details (next to "General" tab)
