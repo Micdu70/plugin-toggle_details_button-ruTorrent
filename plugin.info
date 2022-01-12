@@ -1,4 +1,4 @@
 plugin.description: This plugin adds a button to toggle details (next to "General" tab).
 plugin.author: Micdu70
 plugin.runlevel: 11.1
-plugin.version: 3.10
+plugin.version: 3.11

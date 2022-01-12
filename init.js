@@ -35,6 +35,8 @@ if(plugin.canChangeTabs())
 		{
 			$("#tdcont").hide();
 			plugin.hideTabs(idTabs);
+			$("#tdetails").show();
+			$("#tdetails").height(26);
 		}
 
 		if(!init)
@@ -50,8 +52,9 @@ if(plugin.canChangeTabs())
 	{
 		var ww = $(window).width();
 		var wh = $(window).height();
+		var sh = $("#StatusBar").height();
        		var w = Math.floor(ww * (1 - theWebUI.settings["webui.hsplit"])) - 5;
-	        var th = ($("#t").is(":visible") ? $("#t").height() : -1)+$("#StatusBar").height()+12;
+	        var th = ($("#t").is(":visible") ? $("#t").height() : -1)+sh+12;
 		$("#StatusBar").width(ww);
 		if(theWebUI.settings["webui.show_cats"])
 		{
@@ -66,8 +69,9 @@ if(plugin.canChangeTabs())
 		w-=11;
 		if(hideDetails)
 		{
-			theWebUI.resizeTop( w, Math.floor(wh * (1-($("#StatusBar").height()/wh)))-th-7 );
-			theWebUI.resizeBottom( w, Math.floor(wh * (1 - (1-($("#StatusBar").height()/wh)))) );
+			theWebUI.resizeTop( w, Math.floor(wh * (1-(sh/wh)))-th-7 );
+			theWebUI.resizeBottom( w, Math.floor(wh * (1 - (1-(sh/wh)))) );
+			$("#tdetails").height(26);
 		}
 		else
 		{
@@ -158,7 +162,10 @@ if(plugin.canChangeTabs())
 		if(!init)
 			$("#tab_toggleDetails").remove();
 		else if(!theWebUI.settings["webui.show_dets"])
+		{
 			$("#tdetails").show();
+			$("#tdetails").height(26);
+		}
 
 		if(theWebUI.settings["webui.show_dets"])
 			this.addToggleDetailsButton("toggleDetails","▼","gcont");
